@@ -166,15 +166,11 @@ endfor
 let s:state = ''
 
 function! ime_hangul#handler (matchobj, trigger)
-	call ime#log('ime_hangul', 'fuck sex '. string(a:matchobj))
-	call ime#log('ime_hangul', 'fuck trigger '. string(a:trigger))
-
 	let l:m1 = 1 < len(a:matchobj) ? a:matchobj[1] : ''
 	let l:m2 = 2 < len(a:matchobj) ? a:matchobj[2] : ''
 	let l:m3 = 3 < len(a:matchobj) ? a:matchobj[3] : ''
 
 	if has_key(s:chosung_table, a:trigger)
-		call ime#log('ime_hangul', 'fuck yeah'. a:trigger)
 		let s:state = ''
 		let l:j = s:chosung_table[a:trigger]
 
@@ -250,7 +246,7 @@ function! ime_hangul#handler (matchobj, trigger)
 		return [l:m3 . a:trigger]
 
 	else
-		call ime#log('ime_hangul', 'fuck '. a:trigger)
+		return []
 	endif
 endfunction
 
