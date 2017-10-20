@@ -1,3 +1,5 @@
+[![asciicast](https://asciinema.org/a/143308.png)](https://asciinema.org/a/143308)
+
 ## How to install
 This plugin is 3rd-party plugin of [ime.vim](https://github.com/pi314/ime.vim), and the plugin is personally customized for Colemak-3beolsik. No layouts are supported yet except this layout.
 
