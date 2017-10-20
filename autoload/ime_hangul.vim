@@ -222,7 +222,7 @@ function! ime_hangul#handler (matchobj, trigger)
 
 		return [l:m3 . l:j]
 
-	elseif s:state ==# 'batchim' && l:m3 !=# ''
+	elseif l:m3 !=# ''
 			\ && has_key(s:batchim_table, a:trigger)
 			\ && has_key(s:batchim_syll, s:batchim_table[a:trigger])
 
