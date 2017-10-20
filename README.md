@@ -3,9 +3,11 @@ This plugin is 3rd-party plugin of [ime.vim](https://github.com/pi314/ime.vim), 
 
 ### Using [vim-plug](https://github.com/junegunn/vim-plug)
 ```vim
+" Add these 2 lines between `plug#begin` and `plug#end`.
 Plug 'pi314/ime.vim'
 Plug 'xnuk/hangul-ime'
 
+" Add 'hangul' in g:ime_plugins array
 let g:ime_plugins = ['hangul']
 
 " You'd better set these options. Below are the example.
