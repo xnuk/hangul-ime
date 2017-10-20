@@ -245,6 +245,9 @@ function! ime_hangul#handler (matchobj, trigger)
 		endif
 		return [l:m3 . a:trigger]
 
+	elseif has_key(s:moeum_table, a:trigger)
+		return [l:m1 . l:m2 . l:m3 . s:moeum_table[a:trigger]]
+
 	else
 		return []
 	endif
