@@ -12,7 +12,7 @@ let s:chosung_table = {
 	\ 'n': 'ㅇ',
 	\ 'e': 'ㄱ',
 	\ 'i': 'ㅈ',
-	\ ',': 'ㅌ',
+	\ "'": 'ㅌ',
 	\ 'k': 'ㅅ',
 	\ 'm': 'ㅎ',
 	\ 'o': 'ㅂ',
@@ -49,6 +49,7 @@ let s:moeum_compose_rules = {
 	\ 'ㅗㅓ': 'ㅝ',
 	\ 'ㅗㅔ': 'ㅞ',
 	\ 'ㅗㅜ': 'ㅟ',
+	\ 'ㅗㅗ': 'ㅟ',
 	\ 'ㅜㅣ': 'ㅟ',
 	\ 'ㅜㅏ': 'ㅘ',
 	\ 'ㅜㅐ': 'ㅙ',
@@ -262,6 +263,6 @@ function! ime_hangul#info ()
 	\ 'description': 'Hangul input mode',
 	\ 'pattern': '\v%(([,;a-z]*)|([ㄱ-ㅎ])|([가-힣]))$',
 	\ 'handler': function('ime_hangul#handler'),
-	\ 'trigger': split('abcdefghijklmnopqrstuvwxyzG;,1234567890/', '\zs'),
+	\ 'trigger': split('abcdefghijklmnopqrstuvwxyzG;''1234567890/', '\zs'),
 	\ }
 endfunction
