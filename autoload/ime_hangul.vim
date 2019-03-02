@@ -16,30 +16,30 @@ let s:chosung_table = {
 	\ 'k': 'ㅅ',
 	\ 'm': 'ㅎ',
 	\ ',': 'ㅂ',
-	\ '0': 'ㅋ',
+	\ '/': 'ㅋ',
 	\ }
 
 let s:moeum_table = {
-	\ 'f': 'ㅕ',
+	\ 'g': 'ㅕ',
 	\ 'p': 'ㅓ',
-	\ 'g': 'ㅐ',
+	\ 'f': 'ㅐ',
 	\ 's': 'ㅣ',
 	\ 't': 'ㅏ',
 	\ 'd': 'ㅡ',
 	\ 'c': 'ㅔ',
 	\ 'v': 'ㅗ',
 	\ 'b': 'ㅜ',
-	\ '4': 'ㅛ',
-	\ '5': 'ㅠ',
-	\ '6': 'ㅑ',
-	\ '7': 'ㅖ',
-	\ '/': 'ㅢ',
-	\ 'G': 'ㅒ',
+	\ 'x': 'ㅛ',
+	\ 'a': 'ㅠ',
+	\ 'w': 'ㅑ',
+	\ 'r': 'ㅖ',
+	\ 'z': 'ㅢ',
+	\ 'q': 'ㅒ',
 	\ }
 
 let s:moeum_helper_table = {
-	\ '8': 'ㅗ',
-	\ '9': 'ㅜ',
+	\ '/': 'ㅗ',
+	\ 'y': 'ㅜ',
 	\ }
 
 let s:moeum_compose_rules = {
@@ -48,6 +48,7 @@ let s:moeum_compose_rules = {
 	\ 'ㅗㅐ': 'ㅙ',
 	\ 'ㅗㅓ': 'ㅝ',
 	\ 'ㅗㅔ': 'ㅞ',
+	\ 'ㅗㅜ': 'ㅟ',
 	\ 'ㅜㅣ': 'ㅟ',
 	\ 'ㅜㅏ': 'ㅘ',
 	\ 'ㅜㅐ': 'ㅙ',
@@ -56,21 +57,21 @@ let s:moeum_compose_rules = {
 	\ }
 
 let s:batchim_table = {
-	\ '1': 'ㄷ',
-	\ '2': 'ㅆ',
-	\ '3': 'ㅂ',
 	\ 'q': 'ㅅ',
 	\ 'w': 'ㄹ',
-	\ 'f': 'ㅈ',
-	\ 'p': 'ㅊ',
+	\ 'f': 'ㅂ',
+	\ 'p': 'ㅌ',
+	\ 'g': 'ㅋ',
 	\ 'a': 'ㅇ',
 	\ 'r': 'ㄴ',
 	\ 's': 'ㅎ',
 	\ 't': 'ㅍ',
+	\ 'd': 'ㄷ',
 	\ 'z': 'ㅁ',
-	\ 'x': 'ㄱ',
-	\ 'c': 'ㅌ',
-	\ 'v': 'ㅋ',
+	\ 'x': 'ㅆ',
+	\ 'c': 'ㄱ',
+	\ 'v': 'ㅈ',
+	\ 'b': 'ㅊ',
 	\ }
 
 let s:batchim_compose_rules = {
@@ -171,6 +172,7 @@ function! ime_hangul#handler (matchobj, trigger)
 	let l:m3 = 3 < len(a:matchobj) ? a:matchobj[3] : ''
 
 	if has_key(s:chosung_table, a:trigger)
+		\ && !(s:state ==# '' && has_key(s:moeum_helper_table, a:trigger))
 		let s:state = ''
 		let l:j = s:chosung_table[a:trigger]
 
@@ -258,7 +260,7 @@ function! ime_hangul#info ()
 	\ 'type': 'standalone',
 	\ 'icon': '[가]',
 	\ 'description': 'Hangul input mode',
-	\ 'pattern': '\v%(([,;4-90a-z]*)|([ㄱ-ㅎ])|([가-힣]))$',
+	\ 'pattern': '\v%(([,;a-z]*)|([ㄱ-ㅎ])|([가-힣]))$',
 	\ 'handler': function('ime_hangul#handler'),
 	\ 'trigger': split('abcdefghijklmnopqrstuvwxyzG;,1234567890/', '\zs'),
 	\ }
