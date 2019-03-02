@@ -19,6 +19,14 @@ let s:chosung_table = {
 	\ '0': 'ㅋ',
 	\ }
 
+let s:chosung_compose_rules = {
+	\ 'ㄱㄱ': 'ㄲ',
+	\ 'ㄷㄷ': 'ㄸ',
+	\ 'ㅅㅅ': 'ㅆ',
+	\ 'ㅈㅈ': 'ㅉ',
+	\ 'ㅂㅂ': 'ㅃ',
+	\ }
+
 let s:moeum_table = {
 	\ 'f': 'ㅕ',
 	\ 'p': 'ㅓ',
@@ -33,26 +41,23 @@ let s:moeum_table = {
 	\ '5': 'ㅠ',
 	\ '6': 'ㅑ',
 	\ '7': 'ㅖ',
+	\ '8': '_ㅗ',
+	\ '9': '_ㅜ',
 	\ '/': 'ㅢ',
 	\ 'G': 'ㅒ',
 	\ }
 
-let s:moeum_helper_table = {
-	\ '8': 'ㅗ',
-	\ '9': 'ㅜ',
-	\ }
-
 let s:moeum_compose_rules = {
-	\ 'ㅗㅣ': 'ㅚ',
-	\ 'ㅗㅏ': 'ㅘ',
-	\ 'ㅗㅐ': 'ㅙ',
-	\ 'ㅗㅓ': 'ㅝ',
-	\ 'ㅗㅔ': 'ㅞ',
-	\ 'ㅜㅣ': 'ㅟ',
-	\ 'ㅜㅏ': 'ㅘ',
-	\ 'ㅜㅐ': 'ㅙ',
-	\ 'ㅜㅓ': 'ㅝ',
-	\ 'ㅜㅔ': 'ㅞ',
+	\ '_ㅗㅣ': 'ㅚ',
+	\ '_ㅗㅏ': 'ㅘ',
+	\ '_ㅗㅐ': 'ㅙ',
+	\ '_ㅗㅓ': 'ㅝ',
+	\ '_ㅗㅔ': 'ㅞ',
+	\ '_ㅜㅣ': 'ㅟ',
+	\ '_ㅜㅏ': 'ㅘ',
+	\ '_ㅜㅐ': 'ㅙ',
+	\ '_ㅜㅓ': 'ㅝ',
+	\ '_ㅜㅔ': 'ㅞ',
 	\ }
 
 let s:batchim_table = {
@@ -100,72 +105,70 @@ let s:to_ssang = {
 	\ }
 
 
-let s:jaeum_syll = {
-	\ 'ㄱ': '가',
-	\ 'ㄲ': '까',
-	\ 'ㄴ': '나',
-	\ 'ㄷ': '다',
-	\ 'ㄸ': '따',
-	\ 'ㄹ': '라',
-	\ 'ㅁ': '마',
-	\ 'ㅂ': '바',
-	\ 'ㅃ': '빠',
-	\ 'ㅅ': '사',
-	\ 'ㅆ': '싸',
-	\ 'ㅇ': '아',
-	\ 'ㅈ': '자',
-	\ 'ㅉ': '짜',
-	\ 'ㅊ': '차',
-	\ 'ㅋ': '카',
-	\ 'ㅌ': '타',
-	\ 'ㅍ': '파',
-	\ 'ㅎ': '하',
-	\ }
+let s:initials = [
+	\ 'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ',
+	\ 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ',
+	\ 'ㅌ', 'ㅍ', 'ㅎ' ]
 
 " Dictionary<string, number>
 " which number is evaluated as `char2nr(value) - 44032`
-let s:batchim_syll = {
-	\ 'ㄱ': '각',
-	\ 'ㄲ': '갂',
-	\ 'ㄳ': '갃',
-	\ 'ㄴ': '간',
-	\ 'ㄵ': '갅',
-	\ 'ㄶ': '갆',
-	\ 'ㄷ': '갇',
-	\ 'ㄹ': '갈',
-	\ 'ㄺ': '갉',
-	\ 'ㄻ': '갊',
-	\ 'ㄼ': '갋',
-	\ 'ㄽ': '갌',
-	\ 'ㄾ': '갍',
-	\ 'ㄿ': '갎',
-	\ 'ㅀ': '갏',
-	\ 'ㅁ': '감',
-	\ 'ㅂ': '갑',
-	\ 'ㅄ': '값',
-	\ 'ㅅ': '갓',
-	\ 'ㅆ': '갔',
-	\ 'ㅇ': '강',
-	\ 'ㅈ': '갖',
-	\ 'ㅊ': '갗',
-	\ 'ㅋ': '갘',
-	\ 'ㅌ': '같',
-	\ 'ㅍ': '갚',
-	\ 'ㅎ': '갛',
-	\ }
+let s:batchims = [
+	\ 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ',
+	\ 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅁ',
+	\ 'ㅂ', 'ㅄ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ',
+	\ 'ㅌ', 'ㅍ', 'ㅎ' ]
+
+let s:batchim_start_index = 0x11A8
+let s:medial_start_index = 0x1161
 
 let s:syll_batchim = {}
 
 " Why the linter complains this
-for [k, v] in items(s:batchim_syll)
-	let s:syll_batchim[v] = k
-	let s:batchim_syll[k] = char2nr(v) - 44032
-	unlet k v
-endfor
+" for [k, v] in items(s:batchim_syll)
+" 	let s:syll_batchim[v] = k
+" 	let s:batchim_syll[k] = char2nr(v) - 44032
+" 	unlet k v
+" endfor
+
+" >>> s:consonant_to_batchim('ㄱ')
+" "\u11A8"
+" >>> s:consonant_to_batchim('ㅎ')
+" "\u11C2"
+function s:consonant_to_batchim(consonant)
+	let l:i = index(s:batchims, a:consonant)
+	if l:i < 0
+		return ''
+	else
+		return nr2char(s:batchim_start_index + l:i)
+	endif
+endfunction
+
+" >>> s:vowel_to_medial('ㅏ')
+" "\u1161"
+" >>> s:vowel_to_medial('ㅣ')
+" "\u1175"
+function s:vowel_to_medial(vowel)
+	return nr2char(char2nr(a:vowel) - 0x314F + s:medial_start_index)
+endfunction
 
 let s:state = ''
 
-function! ime_hangul#handler (matchobj, trigger)
+let s:pattern = '\v%('
+		\ . '([ㄱ-ㅎ])' . '|'
+		\ . '([\u1161-\u1175])?([ㅏ-ㅣ])([\u11A8-\u11C2])?' . '|'
+		\ . '([\u11A8-\u11C2])' . '|'
+		\ . '([가-힣])'
+	\ . ')$'
+
+function! ime_hangul#handler(matchobj, trigger)
+	let l:match_start         = 1 < len(a:matchobj) ? a:matchobj[1] : ''
+	let l:match_medial        = 2 < len(a:matchobj) ? a:matchobj[2] : ''
+	let l:match_medial_helper = 3 < len(a:matchobj) ? a:matchobj[3] : ''
+	let l:match_end           = 4 < len(a:matchobj) ? a:matchobj[4] : ''
+	let l:match_complete      = 5 < len(a:matchobj) ? a:matchobj[5] : ''
+endfunction
+
+function! ime_hangul#handler(matchobj, trigger)
 	let l:m1 = 1 < len(a:matchobj) ? a:matchobj[1] : ''
 	let l:m2 = 2 < len(a:matchobj) ? a:matchobj[2] : ''
 	let l:m3 = 3 < len(a:matchobj) ? a:matchobj[3] : ''
@@ -258,7 +261,7 @@ function! ime_hangul#info ()
 	\ 'type': 'standalone',
 	\ 'icon': '[가]',
 	\ 'description': 'Hangul input mode',
-	\ 'pattern': '\v%(([,;4-90a-z]*)|([ㄱ-ㅎ])|([가-힣]))$',
+	\ 'pattern': s:pattern,
 	\ 'handler': function('ime_hangul#handler'),
 	\ 'trigger': split('abcdefghijklmnopqrstuvwxyzG;,1234567890/', '\zs'),
 	\ }
