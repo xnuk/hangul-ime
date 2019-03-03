@@ -135,11 +135,11 @@ let s:syll_batchim = {}
 " >>> s:consonant_to_batchim('ㅎ')
 " "\u11C2"
 function s:consonant_to_batchim(consonant)
-	let l:i = index(s:batchims, a:consonant)
-	if l:i < 0
+	let i = index(s:batchims, a:consonant)
+	if i < 0
 		return ''
 	else
-		return nr2char(s:batchim_start_index + l:i)
+		return nr2char(s:batchim_start_index + i)
 	endif
 endfunction
 
@@ -153,19 +153,27 @@ endfunction
 
 let s:state = ''
 
+function s:empty_state()
+	let s:state = ''
+endfunction
+
 let s:pattern = '\v%('
-		\ . '([ㄱ-ㅎ])' . '|'
-		\ . '([\u1161-\u1175])?([ㅏ-ㅣ])([\u11A8-\u11C2])?' . '|'
-		\ . '([\u11A8-\u11C2])' . '|'
-		\ . '([가-힣])'
+		\ . '([ㄱ-ㅎ\u1161-\u1175ㅏ-ㅣ\u11A8-\u11C2]+)' . '|'
+		\ . '([가-힣])' . '|'
+		\ . '(.|\s|\r|\n)'
 	\ . ')$'
 
-function! ime_hangul#handler(matchobj, trigger)
-	let l:match_start         = 1 < len(a:matchobj) ? a:matchobj[1] : ''
-	let l:match_medial        = 2 < len(a:matchobj) ? a:matchobj[2] : ''
-	let l:match_medial_helper = 3 < len(a:matchobj) ? a:matchobj[3] : ''
-	let l:match_end           = 4 < len(a:matchobj) ? a:matchobj[4] : ''
-	let l:match_complete      = 5 < len(a:matchobj) ? a:matchobj[5] : ''
+" >>> s:handler(['', '', '', 'a'], '')
+" "a"
+function! s:handler(matchobj, trigger)
+	let match_incomplete = 1 < len(a:matchobj) ? a:matchobj[1] : ''
+	let match_complete   = 2 < len(a:matchobj) ? a:matchobj[2] : ''
+	let match_escape     = 3 < len(a:matchobj) ? a:matchobj[3] : ''
+
+	if match_escape !=# ''
+		call s:empty_state()
+		return match_escape
+	endif
 endfunction
 
 function! ime_hangul#handler(matchobj, trigger)
